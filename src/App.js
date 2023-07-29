@@ -5,8 +5,8 @@ import UserInput from './components/UserInput/UserInput';
 
 function App() {
   const [userInput, setUserInput] = useState(null);
-  const calculateHandler = (userInput) => {
-    setUserInput(userInput);
+  const calculateHandler = (value) => {
+    setUserInput(value);
   };
 
   const yearlyData = [];
@@ -32,8 +32,15 @@ function App() {
     <div>
       <Header />
       <UserInput onCalculate={calculateHandler} />
-      {!userInput && <p>No investment calculated yet.</p>}
-      {userInput && <ResultsTable />}
+      {!userInput && (
+        <p style={{ textAlign: 'center' }}>No investment calculated yet.</p>
+      )}
+      {userInput && (
+        <ResultsTable
+          data={yearlyData}
+          initialInvestment={userInput['current-savings']}
+        />
+      )}
     </div>
   );
 }

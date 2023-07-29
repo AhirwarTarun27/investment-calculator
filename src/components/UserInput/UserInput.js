@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import classes from './UserInput.module.css';
 
 const initialValue = {
   'current-savings': 10000,
@@ -21,19 +22,20 @@ const UserInput = (props) => {
 
   const inputChangeHandler = (inputType, value) => {
     setUserInput((prevValue) => {
-      return { ...prevValue, [inputType]: value };
+      return { ...prevValue, [inputType]: +value };
     });
   };
 
   return (
-    <form className="form" onSubmit={submitHandler}>
-      <div className="input-group">
+    <form className={classes.form} onSubmit={submitHandler}>
+      <div className={classes['input-group']}>
         <p>
           <label htmlFor="current-savings">Current Savings ($)</label>
           <input
             onChange={(e) =>
               inputChangeHandler('current-savings', e.target.value)
             }
+            value={userInput['current-savings']}
             type="number"
             id="current-savings"
           />
@@ -44,12 +46,13 @@ const UserInput = (props) => {
             onChange={(e) =>
               inputChangeHandler('yearly-contribution', e.target.value)
             }
+            value={userInput['yearly-contribution']}
             type="number"
             id="yearly-contribution"
           />
         </p>
       </div>
-      <div className="input-group">
+      <div className={classes['input-group']}>
         <p>
           <label htmlFor="expected-return">
             Expected Interest (%, per year)
@@ -58,6 +61,7 @@ const UserInput = (props) => {
             onChange={(e) =>
               inputChangeHandler('expected-return', e.target.value)
             }
+            value={userInput['expected-return']}
             type="number"
             id="expected-return"
           />
@@ -66,16 +70,17 @@ const UserInput = (props) => {
           <label htmlFor="duration">Investment Duration (years)</label>
           <input
             onChange={(e) => inputChangeHandler('duration', e.target.value)}
+            value={userInput['duration']}
             type="number"
             id="duration"
           />
         </p>
       </div>
-      <p onClick={resetHandler} className="actions">
-        <button type="reset" className="buttonAlt">
+      <p onClick={resetHandler} className={classes.actions}>
+        <button type="reset" className={classes.buttonAlt}>
           Reset
         </button>
-        <button type="submit" className="button">
+        <button type="submit" className={classes.button}>
           Calculate
         </button>
       </p>
